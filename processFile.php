@@ -9,8 +9,13 @@ define ("MAX_FILE_SIZE", '20000000'); // 20mb
 
 function getFileType(string $file)
 {
-  //TODO: Check path to magic database
-  $finfo = finfo_open(FILEINFO_MIME, '/usr/share/file/magic' );
+  $finfo = finfo_open(FILEINFO_MIME, '/usr/share/mime/magic' );
+  if (!$finfo)
+    $finfo = finfo_open(FILEINFO_MIME, '/usr/share/file/magic' );
+  if (!$finfo)
+    $finfo = finfo_open(FILEINFO_MIME, '/usr/share/misc/magic' );
+  if (!$finfo)
+    return "magic database not found";
 
   $mimeType = finfo_file($finfo, $file);
   finfo_close($finfo);
