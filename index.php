@@ -23,6 +23,12 @@
     });
   }
 };
+
+  function search() 
+  {
+    //this should implement the search functionality
+  }
+
 </script>
 </head>
 
@@ -34,29 +40,32 @@
     echo file_get_contents("uploads/spritemap.png");
   ?>
 
-<div class = "navigation_bar">
-  <img src="images/my_profile_unpressed.svg"
-  draggable="true" ondragstart="drag(event)"
-  width="60" height="60" style="margin-bottom:5px;"
-  onmouseover="src='images/my_profile_pressed.svg'"
-  onmousedown="src='images/my_profile_pressed.svg'"
-  onmouseout="src='images/my_profile_unpressed.svg'">
-  </br>
-  <img src="images/my_profile_unpressed.svg"
-  width="60" height="60" style="margin-bottom:5px;"
-  onmouseover="src='images/my_profile_pressed.svg'"
-  onmousedown="src='images/my_profile_pressed.svg'"
-  onmouseout="src='images/my_profile_unpressed.svg'">
-  </br>
-  <img src="images/my_profile_unpressed.svg"
-  width="60" height="60" style="margin-bottom:5px;"
-  onmouseover="src='images/my_profile_pressed.svg'"
-  onmousedown="src='images/my_profile_pressed.svg'"
-  onmouseout="src='images/my_profile_unpressed.svg'">
-</br>
-</div>
-
-
+  <div class = "navigation_bar">
+    <!-- must change images and links when possible -->
+    <!-- search  -->
+    <img src="images/my_profile_unpressed.svg"
+      draggable="true" ondragstart="drag(event)"
+      width="60" height="60" style="margin-bottom:5px;"
+      onmouseover="src='images/my_profile_pressed.svg'"
+      onmousedown="src='images/my_profile_pressed.svg'"
+      onmouseout="src='images/my_profile_unpressed.svg'"
+      onCLick="search()"                                />
+    </br>
+    <!-- upload  -->
+    <img src="images/my_profile_unpressed.svg"
+      width="60" height="60" style="margin-bottom:5px;"
+      onmouseover="src='images/my_profile_pressed.svg'"
+      onmousedown="src='images/my_profile_pressed.svg'"
+      onmouseout="src='images/my_profile_unpressed.svg'"/>
+    </br>
+    <!-- help  -->
+    <img src="images/my_profile_unpressed.svg"
+      width="60" height="60" style="margin-bottom:5px;"
+      onmouseover="src='images/my_profile_pressed.svg'"
+      onmousedown="src='images/my_profile_pressed.svg'"
+      onmouseout="src='images/my_profile_unpressed.svg'"/>
+    </b>
+  </div>
 
 </body>
 </html>

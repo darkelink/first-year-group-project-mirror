@@ -417,3 +417,15 @@ div.navigation_bar {
   border-width: 1px;
   border-radius: 15px 15px 15px 15px;
 }
+
+div.search_box {
+  /* copied from above, may need to be modified */
+  position: absolute;
+  top: 32%; /* do not change this */
+  padding: 8px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 15px 15px 15px 15px;
+  left: 100px
+
+}
