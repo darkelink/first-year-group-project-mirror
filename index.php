@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>PLOP</title>
 
+  <!-- DEFAULT -->
+  <link href="global_style.css" type="text/css" rel="styelsheet" />
 
   <!-- DROPZONE -->
   <link href="css/dropzone.css" type="text/css" rel="stylesheet" />
