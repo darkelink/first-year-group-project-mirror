@@ -4,3 +4,5 @@ config.inc.php
 Thumbs.db
 *.svg.old
 uploads/*
+test1.php
+test1.css
