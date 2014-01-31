@@ -5,13 +5,14 @@ require_once('config.inc.php');
 
 $oldestFileID = 0;
 
-function setOldestID()
+function getOldestID()
 {
   //this is necessary because if a method is called directly the above line 
   //will not be executed. May want to remove the line, but have kept for
   //compatibility reasons
   //////////WILL WANT TO MODIFY TO STORE THE ID AND GET THE STORED ID///////
   $oldestFileID = 0;
+  return $oldestFileID;
 }
 
 function DBConnect()

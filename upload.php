@@ -16,7 +16,7 @@ if ($_FILES)
   //find appropriate ID
   $oldestFileID = getOldestID();
  
-  $name = $_FILES['filename']['name'];
+  $name = $_FILES['filename']['tmp_name'];
 
   $size = getimagesize($name);
   $image_type = $size['mime'];
