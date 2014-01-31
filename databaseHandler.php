@@ -2,7 +2,17 @@
 
 require_once('config.inc.php');
 
+
 $oldestFileID = 0;
+
+function setOldestID()
+{
+  //this is necessary because if a method is called directly the above line 
+  //will not be executed. May want to remove the line, but have kept for
+  //compatibility reasons
+  //////////WILL WANT TO MODIFY TO STORE THE ID AND GET THE STORED ID///////
+  $oldestFileID = 0;
+}
 
 function DBConnect()
 {
@@ -70,6 +80,8 @@ function uploadFile( /* temp */ )
 
   //find appropriate ID
   //should use getLatestID() butcannot tell what it is doing
+  setOldestID();
+
   if($oldestFileID == 19)
     $newestFileID = 0;
   else
