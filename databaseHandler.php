@@ -15,7 +15,7 @@ function DBConnect()
   return $mysqli;
 }
 
-function DBdisconnect(mysqli connection)
+function DBdisconnect(mysqli $connection)
 {
   $connection->close();
 }
@@ -45,7 +45,7 @@ function getAllFiles()
 {
 }
 
-function getFile(int id)
+function getFile(int $id)
 {
   $DBconnection = DBConnect();
   
