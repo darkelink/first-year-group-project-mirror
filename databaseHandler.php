@@ -59,10 +59,32 @@ function getFile(int $id)
 
 function uploadFile( /* temp */ )
 {
-  checkFileType();
-  checkFileSize();
+  /*
+    -to determine the type of file for the moment, we will use getimagesize()
+     however when support for other files is added, something different will 
+     have to be done (maybe the getID3 library?)
+   */
+
+  //checkFileType();
+  //checkFileSize();
+
+  //find appropriate ID
+  //should use getLatestID() butcannot tell what it is doing
+  if($oldestFileID == 19)
+    $newestFileID = 0;
+  else
+    $newestFileID = $oldestFileID + 1;
+  
+  $DBconnection = DBConnect();
+  
+  $result = $DBconnection -> prepare("UPDATE file_data SET file-data = " . file_get_contents($_POST) /*the file*/. "file-type = /*the file type */ WHERE ID = ?");
+  $result -> bind_param;
+  $result -> execute();
+
   // upload(getLatestID)
   // UPDATE query
+  DBdisconnect($DBconnection);
+
 }
 
 ?>
