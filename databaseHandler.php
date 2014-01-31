@@ -88,9 +88,13 @@ function uploadFile( /* temp */ )
     $newestFileID = $oldestFileID + 1;
   
   $DBconnection = DBConnect();
+
+  /*********ONLY WORKS FOR IMAGES***********/
+  $size = getimagesize($_POST);
+  $file_type = $size['mime'];
   
-  $result = $DBconnection -> prepare("UPDATE file_data SET file-data = " . file_get_contents($_POST) /*the file*/. "file-type = /*the file type */ WHERE ID = ?");
-  $result -> bind_param;
+  $result = $DBconnection -> prepare("UPDATE file_data SET file-data = " . file_get_contents($_POST) /*the file*/. "file-type = $file_type WHERE ID = ?");
+  $result -> bind_param("i", $newestFileID);
   $result -> execute();
 
   // upload(getLatestID)
