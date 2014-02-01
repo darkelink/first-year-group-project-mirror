@@ -64,6 +64,10 @@ function getFile(int $id)
     $result->bind_param("i", $id);
     $result->execute();
     //TODO: return
+    /* header("Content-type: image/jpeg");
+       echo mysql_result($result, 0);
+       mysql_close($link);
+    */
   }
   DBdisconnect($DBconnection);
 }
