@@ -23,12 +23,13 @@ if ($_FILES)
 
 
   //should use getLatestID() butcannot tell what it is doing
-
+  // getOldestID should do this now - John
+/*
   if($oldestFileID == 19)
     $newestFileID = 0;
   else
     $newestFileID = $oldestFileID + 1;
-
+*/ 
   $DBconnection = DBConnect();
 
 

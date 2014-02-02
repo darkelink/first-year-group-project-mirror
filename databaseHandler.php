@@ -2,16 +2,18 @@
 
 require_once('config.inc.php');
 
-
-$oldestFileID = 0;
+// Constants
+define('MAX_FILES', '20');
 
 function getOldestID()
 {
-  //this is necessary because if a method is called directly the above line 
-  //will not be executed. May want to remove the line, but have kept for
-  //compatibility reasons
-  //////////WILL WANT TO MODIFY TO STORE THE ID AND GET THE STORED ID///////
-  $oldestFileID = 0;
+  // this will only get initalised once
+  static $oldestFileID = 0;
+
+  // reset the pointer if it is at the end of the database
+  $oldestFileID++;
+  if ($oldestFileID >= MAX_FILES)
+    $oldestFileID = 0;
   return $oldestFileID;
 }
 
@@ -31,6 +33,9 @@ function DBdisconnect(mysqli $connection)
   $connection->close();
 }
 
+/*
+   Moved to processFile.php
+
 function checkFileType()
 {
 }
@@ -38,6 +43,11 @@ function checkFileType()
 function checkFileSize()
 {
 }
+*/
+
+/*
+
+DEPRECATED: Use getOldestID insted
 
 function getLatestID()
 {
@@ -48,6 +58,7 @@ function getLatestID()
   }
   return $oldestFileID;
 }
+*/
 
 /////////////////////////////////////////////////
 // public
