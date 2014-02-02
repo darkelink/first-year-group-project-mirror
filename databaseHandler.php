@@ -74,11 +74,11 @@ function getFile(int $id)
   if ($result = $DBConnection -> prepare("SELECT file_data FROM plop_files WHERE ID=?")) {
     $result->bind_param("i", $id);
     $result->execute();
-    //TODO: return
-    /* header("Content-type: image/jpeg");
-       echo mysql_result($result, 0);
-       mysql_close($link);
-    */
+
+    $res = $result->get_result();
+    $row = $res->fetch_assoc();
+    
+    return $row['file_data'];
   }
   DBdisconnect($DBconnection);
 }
