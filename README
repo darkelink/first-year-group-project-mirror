@@ -2,4 +2,6 @@ Repo for Plop web applicaiton.
 
 Requires a config.inc.php file to connect to the database, details of how to obtain one can be found at web.cs.manchester.ac.uk
 
+Requires a magic database installed at /usr/share/file/magic (so will not work on windows).
+
 Please do not put files that are not needed into the repo, feel free to update .gitignore if you use them locally.
