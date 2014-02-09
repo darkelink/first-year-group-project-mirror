@@ -9,6 +9,7 @@
 // Declare other files required - start
 
 require_once('config.inc.php');
+require_once('constants.php');
 
 // Declare other files required - end
 //-----------------------------------------------------------------------------
@@ -17,8 +18,6 @@ require_once('config.inc.php');
 // Need to make sure this doesn't get incremented when no file is uploaded
 static $oldestFileID = 0;
 
-// Constants
-define('MAX_FILES', '20');
 
 // Declare variables - end
 //-----------------------------------------------------------------------------
@@ -33,13 +32,14 @@ function getOldestID()
 }
 
 // Decrease the pointer if the upload failed
+// this shouldn't be needed if we call getOldestID in the right place
 function decreaseOldestID()
 {
-	if ($oldestFileID == 0)
-		$oldestFileID = MAX_FILES - 1;
-	else
-		$oldestFileID--;
-	return $oldestFileID;
+  if ($oldestFileID == 0)
+    $oldestFileID = MAX_FILES - 1;
+  else
+    $oldestFileID--;
+  return $oldestFileID;
 }
 
 // Used to establish connection to database
@@ -75,7 +75,8 @@ function getFile(int $id)
 {
   $DBconnection = DBConnect();
   
-  if ($result = $DBConnection -> prepare("SELECT file_data FROM plop_files WHERE ID=?")) {
+  if ($result = $DBConnection -> prepare("SELECT file_data FROM plop_files WHERE ID=?")) 
+  {
     $result->bind_param("i", $id);
     $result->execute();
 

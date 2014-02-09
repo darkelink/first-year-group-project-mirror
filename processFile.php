@@ -1,11 +1,7 @@
 <?php
 
-// Constants
-// Not sure if this will work, need to test soon
-define ("IMAGE_FILE_TYPES", serialize(array("image/jpeg", "image/gif", "image/png")));
+include_once ('constants.php');
 
-// TODO: Confirm this value
-define ("MAX_FILE_SIZE", '20000000'); // 20mb
 
 function getFileType(string $file)
 {

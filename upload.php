@@ -1,5 +1,5 @@
 <?php
-// To do :
+// TODO:
 /* 	-> Connect to database
 		-> Store file path(includes file name)/file name(same as id)/file type
 				at latest id in database (id = row number)
@@ -7,6 +7,10 @@
 		-> Close connection
 
 	-> Change processFile.php so it changes requirements based on type
+
+
+        Does echo-ing actually do anything here?
+
 */
 
 // Optimisation is going to be needed
@@ -26,16 +30,10 @@ require_once('processFile.php');
 //-----------------------------------------------------------------------------
 // Declare variables - start
 
-// Increments the ID and returns the id under which the file is going to be saved
-$oldest_file_id = getOldestID();
 
 // This needs to be set correctly
 // Sets up the folder to which the files are going to be uploaded
 $upload_directory = 'uploads/';
-
-// This is used in conjunction with move_uploaded_file
-// Basename() adds the actual file name to the name we want to store
-$upload_file = $upload_directory . $oldest_file_id; //. basename($_FILES[file][name]);
 
 // Stores the temporary name assigned by the upload process
 $file_name = $_FILES['file']['tmp_name'];
@@ -61,31 +59,31 @@ $file_type = $_FILES['file']['type'];
 // Check for errors
 if (!$_FILES['file']['error'])
 {
-	// Check size and type
-	if (checkFile($file_name))
-	{
-		// Check if valid file
-		if (move_uploaded_file($file_name, $upload_file))
-		{
-				echo "File successfully uploaded </br>";
-		}
+  // Check size and type
+  // This will fail if $file_name is null
+  if (checkFile($file_name))
+  {
+    // Increments the ID and returns the id under which the file is going to be saved
+    $oldest_file_id = getOldestID();
 
-		else 
-		{
-			echo "Error : Something is not right </br>";
-			decreaseOldestID();
-		}
-	}
-	else 
-	{
-		echo "Error : File is too big and/or is the wrong type </br>";
-		decreaseOldestID();
-	}
+    // This is used in conjunction with move_uploaded_file
+    // Basename() adds the actual file name to the name we want to store
+    $upload_file = $upload_directory . $oldest_file_id; //. basename($_FILES[file][name]);
+
+    // Check if valid file
+    // Where would this method be? What would it do?
+    if (move_uploaded_file($file_name, $upload_file))
+      echo "File successfully uploaded </br>";
+    else 
+      echo "Error : Something is not right </br>";
+  }
+  else 
+    echo "Error : File is too big and/or is the wrong type </br>";
 }
 else 
 {
-	echo "Error : " . $_FILES['file']['error'] . "</br>";
-	decreaseOldestID();
+  echo "Error : " . $_FILES['file']['error'] . "</br>";
+  decreaseOldestID();
 }
 
 
