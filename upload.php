@@ -5,8 +5,8 @@
 				at latest id in database (id = row number)
 		-> Maybe make sure we can link user to file in database
 		-> Close connection
-		///
-		-> Change processFile.php so it changes requirements based on type
+
+	-> Change processFile.php so it changes requirements based on type
 */
 
 // Optimisation is going to be needed
