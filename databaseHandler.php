@@ -1,9 +1,9 @@
 <?php
 // To do :
 /*	-> Change getFile function
-		///
-		-> Write getAllFiles accordingly
-		-> Additional functions ???
+    ///
+	-> Write getAllFiles accordingly
+	-> Additional functions ???
 */
 //-----------------------------------------------------------------------------
 // Declare other files required - start
