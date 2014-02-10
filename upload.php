@@ -75,16 +75,16 @@ if (!$_FILES['file']['error'])
     if (move_uploaded_file($file_name, $upload_file))
       echo "File successfully uploaded </br>";
     else 
+    {
       echo "Error : Something is not right </br>";
+      decreaseOldestID();
+    }
   }
   else 
     echo "Error : File is too big and/or is the wrong type </br>";
 }
 else 
-{
   echo "Error : " . $_FILES['file']['error'] . "</br>";
-  decreaseOldestID();
-}
 
 
 /*
