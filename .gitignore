@@ -2,3 +2,4 @@ config.inc.php
 *.swp
 *~
 Thumbs.db
+*.svg.old
