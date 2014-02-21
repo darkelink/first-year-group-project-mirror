@@ -73,18 +73,18 @@ if (!$_FILES['file']['error'])
     // Check if valid file
     // Where would this method be? What would it do?
     if (move_uploaded_file($file_name, $upload_file))
-      echo "File successfully uploaded </br>";
+      // echo "File successfully uploaded </br>";
     else 
     {
-      echo "Error : Something is not right </br>";
+      // echo "Error : Something is not right </br>";
       decreaseOldestID();
     }
   }
   else 
-    echo "Error : File is too big and/or is the wrong type </br>";
+    // echo "Error : File is too big and/or is the wrong type </br>";
 }
 else 
-  echo "Error : " . $_FILES['file']['error'] . "</br>";
+  // echo "Error : " . $_FILES['file']['error'] . "</br>";
 
 
 /*
