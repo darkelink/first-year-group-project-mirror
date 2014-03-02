@@ -1,7 +1,7 @@
 <?php
 
 require_once('config.inc.php');
-
+require_once('constants.php');
 
 $ds = DIRECTORY_SEPARATOR;
 $storeFolder = 'uploads';
@@ -9,33 +9,14 @@ $storeFolder = 'uploads';
 if (!empty($_FILES)) {
   // A file was uploaded
 
-  $size = $_FILE['file']['size'];
+  $size = $_FILES['file']['size'];
   $tempFile = $_FILES['file']['tmp_name'];
-  $mimeType = $tempFile['mime'];
+  $mimeType = getimagesize($tempFile)['mime'];
 
   if (in_array($mimeType, array_merge(unserialize(IMAGE_FILE_TYPES))) && $size < MAX_FILE_SIZE) {
     $targetPath = dirname( __FILE__ ) . $ds. $storeFolder . $ds;
     $targetFile =  $targetPath. $_FILES['file']['name']; 
     move_uploaded_file($tempFile,$targetFile);
-      
-    $mysqli = new mysqli($database_host, $database_user, $database_pass, $group_dbnames[0]);
-    if($mysqli -> connect_error) {
-      die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
-    } else {
-      // For some reason, this always returns false
-      if ($stmt = $mysqli->prepare("INSERT INTO test (`temp`) VALUES (:test)")) {
-        $stmt->bind_param(':test', "GTRJSO"); 
-        $stmt->execute();
-        printf("%d Row inserted.\n", $stmt->affected_rows);
-        $stmt->close();
-      } else {
-        // TODO: temp hack as above always fails for some reason
-        // this does not protect against any attacks
-        mysqli_query($mysqli,"INSERT INTO test (`temp`) VALUES (". mysqli_real_escape_string($mysqli, $targetPath) .")") or die(mysqli_error($mysqli));
-      }
-    }
-    // This can take a very long time for some reason
-    $mysqli->close();
   }
 } else { 
   // Opening the page
