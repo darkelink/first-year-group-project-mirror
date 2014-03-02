@@ -8,17 +8,10 @@ $storeFolder = 'uploads';
 
 if (!empty($_FILES)) {
   // A file was uploaded
-
-  static $id = 0;
-  $size = $_FILES['filename']['size'];
   $tempFile = $_FILES['file']['tmp_name'];
-  $mimeType = $tempFile['mime'];
-
-  if (in_array($mimeType, array_merge(unserialize(IMAGE_FILE_TYPES))) {
-    if ($size <= MAX_FILE_SIZE) {
-      $targetPath = dirname( __FILE__ ) . $ds. $storeFolder . $ds;
-      $targetFile =  $targetPath. $id++;
-      move_uploaded_file($tempFile,$targetFile);
+  $targetPath = dirname( __FILE__ ) . $ds. $storeFolder . $ds;
+  $targetFile =  $targetPath. $_FILES['file']['name']; 
+  move_uploaded_file($tempFile,$targetFile);
     
   $mysqli = new mysqli($database_host, $database_user, $database_pass, $group_dbnames[0]);
   if($mysqli -> connect_error) {
@@ -38,8 +31,6 @@ if (!empty($_FILES)) {
   }
   // This can take a very long time for some reason
   $mysqli->close();
-    }
-  }
 } else { 
   // Opening the page
   $result  = array();
