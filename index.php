@@ -56,9 +56,6 @@
 
 <body>	
   <form action="upload.php" class="dropzone" id="my-dropzone"></form>
-  <?php
-    echo file_get_contents("uploads/spritemap.png");
-  ?>
 
   <div class = "navigation_bar">
     <!-- must change images and links when possible -->
@@ -89,4 +86,3 @@
 
 </body>
 </html>
-
