@@ -14,4 +14,7 @@ define ("MAX_FILE_SIZE", '20000000'); // 20mb
 
 // TODO: decide on a value for this
 define ('MAX_FILES', '20');
+
+// Maximum number of reports per ip per 30 or 60 minutes
+define ('MAX_REPORTS', '5');
 ?>
