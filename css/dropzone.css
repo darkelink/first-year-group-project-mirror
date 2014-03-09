@@ -11,7 +11,7 @@
 .dropzone {
   position: absolute;
   border: 1px solid rgba(255,100,123,0);
-  border-radius:50%;
+  border-radius:100%;
   background: rgba(0,0,0,0.02);
   padding: 1em;
 }
@@ -159,13 +159,15 @@
 .dropzone {
   position:absolute;
   border: 1px solid rgba(0,0,100,0.03);
-  min-height: 50%;
+  min-height: 5%;
   min-width: 5%;
+  height:900px;
+  width:1300px;
   -webkit-border-radius: 100%;
   border-radius: 100%;
-  background: rgba(0,0,0,0.03);
+  background: #00ABFF;
   padding: 20%;
-  left:20%;
+  left:10%;
 }
 .dropzone .dz-default.dz-message {
   opacity: 1;

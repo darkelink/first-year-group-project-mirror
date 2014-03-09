@@ -23,12 +23,22 @@ body
   height: 100%;
   background-color: #00ABFF;
 }
-
+/* header attributes */
+h
+{
+ position:absolute;
+ text-shadow: 5px 5px 5px #FF0000;
+ font-weight: bold;
+ font-size: 60px;
+ bottom:650px;
+}
 /* paragraph attributes */
 
 p
 {
+  position:absolute;
   font-weight: bold;
+  bottom:600px;
 }
 
 /* central pool attributes */
@@ -38,9 +48,9 @@ div.central_pool
   
   position: absolute;
   padding: 20%; /* do not change this */
-  left: 30%;    /* do not change this */
+  left: 15%;    /* do not change this */
   top: 3%;      /* do not change this */
-  
+  width:500px;
   border-radius: 50%;
   border-style: dashed;
   border-color: rgba(0,0,0,0.2);
