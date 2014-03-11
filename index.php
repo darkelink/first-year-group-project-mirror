@@ -42,7 +42,9 @@
       'transitionIn'  : 'elastic',
       'transitionOut' : 'elastic',
       'speedIn'   : 600, 
-      'speedOut'    : 200, 
+      'speedOut'    : 200,
+      <!--report button links to report.php and gives it file name -->
+      'content' : '<a class="btn-red" onClick="report()">Report</a>',
     });
 
     $(".dz-preview").fancybox({
@@ -53,6 +55,19 @@
     });
 
   });
+  </script>
+  <script type="text/javascript">
+  function report()
+  {
+     $.ajax({
+       type: "POST", // POST method
+       url: "/report.php", // calls report
+       data: "this.id", // sends id of the file
+       success: function(msg){
+         console.log( "Report done!"); // for testing
+       }
+     });   
+  }
   </script>
 </head>
 
