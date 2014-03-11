@@ -1,0 +1,120 @@
+
+/*
+  NOTE: the sizing attributes for the components are only temporary, this
+  should be changed so they size correctly with any browser dimension and
+  for each component to have their own minimum dimensions. 
+*/
+
+/* global attributes for main components */
+
+*
+{
+  font-family: "Open Sans", sans-serif;
+  color: rgba(0,0,0,0.8);
+  background-color: rgba(0,0,0,0.0);
+  
+  border-color: rgba(0,0,0,0.7);
+}
+/* button code */
+[class*='btn-'] {
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
+  color: #fff;
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  padding: 8px 16px;
+  text-decoration: none;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+  
+  -webkit-transition: background-color 0.1s linear;
+  -moz-transition: background-color 0.1s linear;
+  -o-transition: background-color 0.1s linear;
+    transition: background-color 0.1s linear; 
+}
+  [class*='btn-']:hover {
+    cursor: pointer;
+  }
+  
+  .btn-red {
+    background-color: rgb( 207, 56, 91 );
+    border: 1px solid rgb( 187, 40, 74 );
+  }
+  
+    .btn-red:hover {
+      background-color: rgb( 227, 77, 130 );
+    }
+    
+    .btn-red:active {
+      background-color: rgb( 187, 40, 74 );
+    }
+/* end of button code */
+/* main body attributes */
+
+body
+{
+  height: 100%;
+  background-color: #00ABFF;
+}
+/* header attributes */
+h
+{
+ position:absolute;
+ text-shadow: 5px 5px 5px #FF0000;
+ font-weight: bold;
+ font-size: 60px;
+ bottom:650px;
+}
+/* paragraph attributes */
+
+p
+{
+  position:absolute;
+  font-weight: bold;
+  bottom:600px;
+}
+
+/* central pool attributes */
+
+div.central_pool
+{
+  
+  position: absolute;
+  padding: 20%; /* do not change this */
+  left: 15%;    /* do not change this */
+  top: 3%;      /* do not change this */
+  width:500px;
+  border-radius: 50%;
+  border-style: dashed;
+  border-color: rgba(0,0,0,0.2);
+}
+
+/* navigation bar attributes */
+
+div.navigation_bar
+{
+  position: absolute;
+  top: 32%; /* do not change this */
+  padding: 8px;
+  
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 15px;
+}
+
+/* filter bar attributes */
+
+div.filter_bar
+{
+  position: absolute;
+  top: 90%;  /* do not change this */
+  left: 37%; /* do not change this */
+  padding: 8px;
+  
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 8px;
+}
+
