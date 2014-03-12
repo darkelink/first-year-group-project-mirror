@@ -1,26 +1,35 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
   <title>PLOP</title>
 
   <!-- DEFAULT -->
-  <link href="global_style.css" type="text/css" rel="styelsheet" />
+  <!-- FOR SOME REASON, THIS DOESN'T WORK -->
+  <link href="css/global_style.css" type="text/css" rel="styelsheet" />
 
   <!-- DROPZONE -->
   <link href="css/dropzone.css" type="text/css" rel="stylesheet" />
-  <script src="dropzone.min.js"></script>
+  <script type="text/javascript" src="js/dropzone.js"></script>
 
   <!-- JQUERY -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 
   <!-- FANCYBOX -->
-  <link rel="stylesheet" href="/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
-  <script type="text/javascript" src="/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  <link rel="stylesheet" href="css/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+  <script type="text/javascript" src="js/jquery.fancybox.js?v=2.1.5"></script>
     
+  <!-- INIT PAGE -->
   <script>
   // create Dropzone
   Dropzone.options.myDropzone = {
+    maxFileSize: 20,
+    uploadMultiple: false,
+    parallelUploads: 1,
+    acceptedFiles: "image/*",
+    previewTemplate: "<div class='dz-preview dz-file-preview'><div class='dz-details'><img data-dz-thumbnail /></div><div class='dz-progress'><span class='dz-upload' data-dz-uploadprogress></span></div><div class='dz-success-mark'><span></span></div><div class='dz-error-mark'><span></span></div><div class='dz-error-message'><span data-dz-errormessage></span></div></div>",
+      
+    // add all files from uploads/ to dropzone when the page loads
     init: function() {
       thisDropzone = this;
       thisDropzone.clickable = true;
@@ -34,46 +43,48 @@
     }
   };
 
-  
+      
+  // Setup fancybox
   $(document).ready(function() {
     $(".dz-preview").fancybox();
 
     $(".dz-preview").fancybox({
-      'transitionIn'  : 'elastic',
-      'transitionOut' : 'elastic',
-      'speedIn'   : 600, 
-      'speedOut'    : 200,
-      <!--report button links to report.php and gives it file name -->
-      'content' : '<a class="btn-red" onClick="report()">Report</a>',
-    });
-
-    $(".dz-preview").fancybox({
+      transitionIn : "elastic",
+      transitionOut : "elastic",
+      speedIn : 600, 
+      speedOut : 200,
+      // Add report button to the end
+      afterLoad : function() {
+        this.content = this.content.html() + "<a class='btn-red' onClick='report()'>Report</a>";
+      },
       afterClose : function() {
         location.reload();
         return;
       }
     });
-
   });
-  </script>
-  <script type="text/javascript">
-  function report()
-  {
-     $.ajax({
-       type: "POST", // POST method
-       url: "/report.php", // calls report
-       data: "this.id", // sends id of the file
-       success: function(msg){
-         console.log( "Report done!"); // for testing
-       }
-     });   
+      
+  function report() {
+    $.ajax({
+      type: "POST", // POST method
+      url: "/report.php", // calls report
+      data: "this.id", // sends id of the file
+      success: function(msg){
+        console.log( "Report done!"); // for testing
+      }
+    });   
   }
   </script>
 </head>
 
 <body>	
-  <form action="upload.php" class="dropzone" id="my-dropzone"></form>
-
+    
+  <form action="upload.php" class="dropzone" id="my-dropzone">
+    <div class="fallback">
+      <span>Please update your browser to properly use this site.</span>
+    </div>
+  </form>
+    
   <div class = "navigation_bar">
     <!-- must change images and links when possible -->
     <!-- search  -->
@@ -100,6 +111,6 @@
       onmouseout="src='images/my_profile_unpressed.svg'"/>
     </b>
   </div>
-
+    
 </body>
 </html>
