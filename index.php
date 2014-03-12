@@ -63,8 +63,8 @@
       }
     });
   });
-  </script>
-  <script type="text/javascript">
+
+
   function report()
   {
      $.ajax({
