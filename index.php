@@ -63,16 +63,18 @@
       }
     });
   });
-      
-  function report() {
-    $.ajax({
-      type: "POST", // POST method
-      url: "/report.php", // calls report
-      data: "this.id", // sends id of the file
-      success: function(msg){
-        console.log( "Report done!"); // for testing
-      }
-    });   
+  </script>
+  <script type="text/javascript">
+  function report()
+  {
+     $.ajax({
+       type: "POST", // POST method
+       url: "report.php", // calls report
+       data: "this.id", // sends id of the file
+       success: function(msg){
+         console.log( "Report done!"); // for testing
+       }
+     });   
   }
   </script>
 </head>
