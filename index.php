@@ -61,7 +61,7 @@
   {
      $.ajax({
        type: "POST", // POST method
-       url: "/report.php", // calls report
+       url: "report.php", // calls report
        data: "this.id", // sends id of the file
        success: function(msg){
          console.log( "Report done!"); // for testing

@@ -5,7 +5,7 @@ require_once("constants.php");
 
 $ClientIP = $_SERVER['REMOTE_ADDR'];
 $ClientProxy = $_SERVER['HTTP_X_FORWARDED_FOR'];
-$file_id = $_POST // SOMETHING TO GET FILE NAME FROM HTML BUTTON / FORM
+$file_id = $_POST['file']['name']
 $found = false;
 
 $mysqli = new mysqli($database_host, $database_user, $database_pass, $group_dbnames[0]);
