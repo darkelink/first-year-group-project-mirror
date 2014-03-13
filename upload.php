@@ -47,7 +47,7 @@ if (!empty($_FILES)) {
       if ( '.'!=$file && '..'!=$file) {
         $obj['name'] = $file;
         $obj['size'] = filesize($storeFolder.$ds.$file);
-        $result[] = $obj;
+        array_push($result, array($obj['name'] => $obj['size']));
       }
     }
   }
