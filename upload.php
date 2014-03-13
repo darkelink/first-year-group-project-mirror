@@ -47,7 +47,8 @@ if (!empty($_FILES)) {
       if ( '.'!=$file && '..'!=$file) {
         $obj['name'] = $file;
         $obj['size'] = filesize($storeFolder.$ds.$file);
-        array_push($result, array($obj['name'] => $obj['size']));
+        // I still don't see how this is better than $result[] = $obj;
+        array_push($result, array('name' => $obj['name'], 'size' => $obj['size']));
       }
     }
   }
@@ -55,4 +56,4 @@ if (!empty($_FILES)) {
   header('Content-type: application/json');
   echo json_encode($result);
 }
-?> 
+?>
