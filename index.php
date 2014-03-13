@@ -33,7 +33,7 @@
     init: function() {
       thisDropzone = this;
       thisDropzone.clickable = true;
-      $.get('upload.php', function(data) {
+      $.getJSON('upload.php', function(data) {
         $.each(data, function(key,value){         
           var mockFile = { name: value.name, size: value.size };
           thisDropzone.options.addedfile.call(thisDropzone, mockFile);
