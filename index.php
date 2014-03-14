@@ -41,6 +41,8 @@
         });
       }).fail (function(d) {
         console.error("JSON parsing failed.");
+        // on error, retry
+        thisDropzone.init();
       });
     }
   };

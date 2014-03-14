@@ -40,7 +40,7 @@ if (!empty($_FILES)) {
   // Opening the page
   $result  = [];
   $dir = dir($storeFolder);
-  while (($file = $dir->read()) != false) {
+  while (($file = $dir->read()) !== false) {
     if ($file != '.' && $file != '..') {
       $obj['name'] = $file;
       $obj['size'] = filesize($dir->path . DS . $file);
