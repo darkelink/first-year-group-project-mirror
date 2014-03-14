@@ -17,4 +17,6 @@ define ('MAX_FILES', '20');
 
 // Maximum number of reports per ip per 30 or 60 minutes
 define ('MAX_REPORTS', '5');
+
+define ('DS', DIRECTORY_SEPARATOR);
 ?>

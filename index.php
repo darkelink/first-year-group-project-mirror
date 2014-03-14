@@ -39,6 +39,8 @@
           thisDropzone.options.addedfile.call(thisDropzone, mockFile);
           thisDropzone.options.thumbnail.call(thisDropzone, mockFile, "uploads/"+value.name);
         });
+      }).fail (function(d) {
+        console.error("JSON parsing failed.");
       });
     }
   };
@@ -116,3 +118,4 @@
     
 </body>
 </html>
+
