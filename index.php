@@ -27,8 +27,8 @@
     $.getJSON('upload.php', function(data) {
       $.each(data, function(key,value){
         var mockFile = { name: value.name, size: value.size };
-        dz.options.addedfile.call(thisDropzone, mockFile);
-        dz.options.thumbnail.call(thisDropzone, mockFile, "uploads/"+value.name);
+        dz.options.addedfile.call(dz, mockFile);
+        dz.options.thumbnail.call(dz, mockFile, "uploads/"+value.name);
       });
     }).fail (function(d) {
       console.warn("JSON parsing failed.");
