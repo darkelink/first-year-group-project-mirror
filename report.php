@@ -50,6 +50,7 @@ if($stmt = $mysqli->prepare("SELECT `Client IP`, `Client Proxy` FROM `IP_Address
           }
         }
       }
+      $r_stmt->close();
     }
     // CHECK LIST FOR PROXY
     elseif($proxy == $ClientProxy && !$found)
@@ -84,6 +85,7 @@ if($stmt = $mysqli->prepare("SELECT `Client IP`, `Client Proxy` FROM `IP_Address
           }
         }
       }
+      $r_stmt->close();
     }
   }
   $stmt->close();
