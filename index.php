@@ -21,29 +21,34 @@
     
   <!-- INIT PAGE -->
   <script>
-  // create Dropzone
+  
+  // display all files in the dropzone
+  function getFiles(dz) {
+    $.getJSON('upload.php', function(data) {
+      $.each(data, function(key,value){
+        var mockFile = { name: value.name, size: value.size };
+        dz.options.addedfile.call(thisDropzone, mockFile);
+        dz.options.thumbnail.call(thisDropzone, mockFile, "uploads/"+value.name);
+      });
+    }).fail (function(d) {
+      console.warn("JSON parsing failed.");
+      // on error, retry
+      getFiles(dz);
+    });
+  }
+
+  // setup Dropzone
   Dropzone.options.myDropzone = {
     maxFileSize: 20,
     uploadMultiple: false,
     parallelUploads: 1,
+    clickable: true,
     acceptedFiles: "image/*",
     previewTemplate: "<div class='dz-preview dz-file-preview'><div class='dz-details'><img data-dz-thumbnail /></div><div class='dz-progress'><span class='dz-upload' data-dz-uploadprogress></span></div><div class='dz-success-mark'><span></span></div><div class='dz-error-mark'><span></span></div><div class='dz-error-message'><span data-dz-errormessage></span></div></div>",
       
     // add all files from uploads/ to dropzone when the page loads
     init: function() {
-      thisDropzone = this;
-      thisDropzone.clickable = true;
-      $.getJSON('upload.php', function(data) {
-        $.each(data, function(key,value){         
-          var mockFile = { name: value.name, size: value.size };
-          thisDropzone.options.addedfile.call(thisDropzone, mockFile);
-          thisDropzone.options.thumbnail.call(thisDropzone, mockFile, "uploads/"+value.name);
-        });
-      }).fail (function(d) {
-        console.error("JSON parsing failed.");
-        // on error, retry
-        thisDropzone.init();
-      });
+      getFiles(this);
     }
   };
 
@@ -120,4 +125,3 @@
     
 </body>
 </html>
-
