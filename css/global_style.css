@@ -11,6 +11,10 @@ body {
   margin: 0;
 }
 
+.helpBtn {
+  position: absolute;
+}
+
 *
 {
   font-family: "Open Sans", sans-serif;
