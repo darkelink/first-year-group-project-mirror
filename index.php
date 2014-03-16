@@ -41,6 +41,8 @@
   var WIDTH = 2000;
   var HEIGHT = 2000;
 
+  var fileName;
+
 
   init();
   animate();
@@ -187,8 +189,10 @@
       speedIn : 600, 
       speedOut : 200,
       // Add report button to the end
-      afterLoad : function() {
+      afterLoad : function(current) {
         this.content = this.content.html() + "<a class='btn-red' onClick='report()'>Report</a>";
+        fileName = current.element[0].children[0].children[0].src;
+        console.log(fileName);
       },
       afterClose : function() {
         location.reload();
@@ -206,7 +210,7 @@
   {
      $.ajax({
        type: "POST", // POST method
-       url: "report.php", // calls report
+       url: "report.php?name=" + fileName, // calls report
        data: "this.id", // sends id of the file
        success: function(msg){
          console.log( "Report done!"); // for testing

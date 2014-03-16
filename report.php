@@ -16,7 +16,7 @@ if($stmt = $mysqli->prepare("SELECT `Client IP` FROM `IP_Addresses`"))
   $stmt->execute();
   $stmt->bind_result($ip);
   echo "$ClientIP\n";
-  while($stmt->fetch())
+  while(!$found && $stmt->fetch())
   {
     // CHECK LIST FOR IP
     echo "Test 1 - before ip check\n";
@@ -40,7 +40,8 @@ if($stmt = $mysqli->prepare("SELECT `Client IP` FROM `IP_Addresses`"))
           if($u_stmt = $mysqli->prepare("UPDATE `IP_Addresses` SET `Reports`= ? WHERE `Client IP` = ?"))
           {
             echo "Check if update clause is good\n";
-            $u_stmt->bind_param('is', ($report_number + 1), $ip);
+            $nextReport = $report_number + 1;
+            $u_stmt->bind_param('is', $nextReport, $ip);
             $u_stmt->execute();
             $u_stmt->close();
           }
