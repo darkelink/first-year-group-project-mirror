@@ -4,7 +4,6 @@ require_once("config.inc.php");
 require_once("constants.php");
 
 $ClientIP = $_SERVER['REMOTE_ADDR'];
-$ClientProxy = 1; //$_SERVER['HTTP_X_FORWARDED_FOR'];
 $file_id = $_POST['file']['name'];
 $found = false;
 
@@ -52,44 +51,6 @@ if($stmt = $mysqli->prepare("SELECT `Client IP`, `Client Proxy` FROM `IP_Address
         $r_stmt->close();
       }
     }
-    // CHECK LIST FOR PROXY
-    elseif($proxy == $ClientProxy && !$found)
-    {
-      $found = true;
-      if($r_stmt = $mysqli->prepare("SELECT `Reports` FROM `IP_Addresses` WHERE `Client Proxy` = ?"))
-      {
-        $r_stmt->bind_param('s', $proxy);
-        $r_stmt->execute();
-        $r_stmt->bind_result($report_number);
-        $r_stmt->fetch();
-        if($report_number < MAX_REPORTS)
-        {
-          if($u_stmt = $mysqli->prepare("UPDATE `IP_Addresses` SET `Reports`= ? WHERE `Client Proxy` = ?"))
-          {
-            $u_stmt->bind_param('is', ($report_number + 1), $ip);
-            $u_stmt->execute();
-            $u_stmt->close();
-          }
-          if($u_stmt = $mysqli->prepare("SELECT `Reports` FROM `plop_files` WHERE `ID`= ?"))
-          {
-            $u_stmt->bind_param('i', $file_id);
-            $u_stmt->execute();
-            $u_stmt->bind_result($times_reported);
-            $u_stmt->close();
-          }
-          if($u_stmt = $mysqli->prepare("UPDATE `plop_files` SET `Reports`= ? WHERE `ID`= ?"))
-          {
-            $u_stmt->bind_param('ii', $times_reported, $file_id);
-            $u_stmt->execute();
-            $u_stmt->close();
-          }
-        }
-        $r_stmt->close();
-      }
-    }
-  }
-  $stmt->close();
-
   // Create entry for IP and Proxy
   if (!$found)
   {
