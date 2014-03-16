@@ -21,6 +21,8 @@ if($stmt = $mysqli->prepare("SELECT `Client IP` FROM `IP_Addresses`"))
   {
     // CHECK LIST FOR IP
     echo "Test 1 - before ip check\n";
+    echo "$found\n";
+    echo "IP in datab : $ip\n";
     if($ip == $ClientIP && !$found)
     {
       $found = true;
@@ -38,6 +40,7 @@ if($stmt = $mysqli->prepare("SELECT `Client IP` FROM `IP_Addresses`"))
         {
           if($u_stmt = $mysqli->prepare("UPDATE `IP_Addresses` SET `Reports`= ? WHERE `Client IP` = ?"))
           {
+            echo "Check if update clause is good\n";
             $u_stmt->bind_param('is', ($report_number + 1), $ip);
             $u_stmt->execute();
           }
@@ -66,7 +69,7 @@ if($stmt = $mysqli->prepare("SELECT `Client IP` FROM `IP_Addresses`"))
   echo "Test before !found if\n";
   if (!$found)
   {
-    ecoh "Test inside !found if\n";
+    echo "Test inside !found if\n";
     if($u_stmt = $mysqli->prepare("INSERT INTO `IP_Addresses`(`Client IP`, `Reports`) VALUES (?,?)"))
     {
       $temp = 1;
