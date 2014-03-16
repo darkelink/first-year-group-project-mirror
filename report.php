@@ -17,11 +17,14 @@ if($stmt = $mysqli->prepare("SELECT `Client IP`, `Client Proxy` FROM `IP_Address
   while($stmt->fetch())
   {
     // CHECK LIST FOR IP
+    echo "Test 1 - before ip check";
     if($ip == $ClientIP && !$found)
     {
       $found = true;
+      echo "Test 2 - after ip check";
       if($r_stmt = $mysqli->prepare("SELECT `Reports` FROM `IP_Addresses` WHERE `Client IP` = ?"))
       {
+        echo "First if test";
         $r_stmt->bind_param('s', $ip);
         $r_stmt->execute();
         $r_stmt->bind_result($report_number);
