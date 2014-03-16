@@ -177,7 +177,6 @@
       getFiles(this);
     }
   });
-
   // Setup fancybox (jquery)
   $(document).ready(function() {
     $(".dz-preview").fancybox();
@@ -211,9 +210,9 @@
      $.ajax({
        type: "POST", // POST method
        url: "report.php?name=" + fileName, // calls report
-       data: "this.id", // sends id of the file
        success: function(msg){
-         console.log( "Report done!"); // for testing
+         console.log(filename);
+         console.log("Report done"); // for testing
        }
      });   
   }
