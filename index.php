@@ -175,12 +175,13 @@
       getFiles(this);
     }
   });
-
+  var filename;
   // Setup fancybox (jquery)
   $(document).ready(function() {
     $(".dz-preview").fancybox();
 
     $(".dz-preview").fancybox({
+      filename = $(document).name;
       transitionIn : "elastic",
       transitionOut : "elastic",
       padding: 0,
@@ -207,9 +208,10 @@
      $.ajax({
        type: "POST", // POST method
        url: "report.php", // calls report
-       data: "this.id", // sends id of the file
+       data: filename, // sends id of the file
        success: function(msg){
-         console.log( "Report done!"); // for testing
+         console.log(filename);
+         console.log("Report done"); // for testing
        }
      });   
   }
