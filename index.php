@@ -214,6 +214,12 @@
      });   
   }
 
+  window.onresize = function(event) {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerwidth / window.innerheight;
+  }
+
+
 
   </script>
 
