@@ -5,6 +5,8 @@ require_once("constants.php");
 
 $ClientIP = $_SERVER['REMOTE_ADDR'];
 $file_id = $_GET['name'];
+$array = explode(DS, $file_id);
+$file_id = end($array);
 $found = false;
 
 $mysqli = new mysqli($database_host, $database_user, $database_pass, $group_dbnames[0]);
