@@ -32,19 +32,20 @@ if($stmt = $mysqli->prepare("SELECT `Client IP`, `Client Proxy` FROM `IP_Address
           {
             $u_stmt->bind_param('is', ($report_number + 1), $ip);
             $u_stmt->execute();
-            $u_stmt->close();
           }
           if($u_stmt = $mysqli->prepare("SELECT `Reports` FROM `plop_files` WHERE `ID`= ?"))
           {
             $u_stmt->bind_param('i', $file_id);
             $u_stmt->execute();
             $u_stmt->bind_result($times_reported);
-            $u_stmt->close();
           }
           if($u_stmt = $mysqli->prepare("UPDATE `plop_files` SET `Reports`= ? WHERE `ID`= ?"))
           {
             $u_stmt->bind_param('ii', $times_reported, $file_id);
             $u_stmt->execute();
+          }
+          if ($u_stmt != null)
+          {
             $u_stmt->close();
           }
         }
@@ -55,27 +56,31 @@ if($stmt = $mysqli->prepare("SELECT `Client IP`, `Client Proxy` FROM `IP_Address
     // Create entry for IP and Proxy
   if (!$found)
   {
-    if($stmt = $mysqli->prepare("INSERT INTO `IP_Addresses`(`Client IP`, `Client Proxy`, `Reports`) VALUES (?,?,?)"))
+    if($u_stmt = $mysqli->prepare("INSERT INTO `IP_Addresses`(`Client IP`, `Client Proxy`, `Reports`) VALUES (?,?,?)"))
     {
       $temp = 1;
-      $stmt->bind_param('ssi', $ClientIP, $ClientProxy, $temp);
-      $stmt->execute();
-      $stmt->close();
+      $u_stmt->bind_param('ssi', $ClientIP, $ClientProxy, $temp);
+      $u_stmt->execute();
     }
-    if($stmt = $mysqli->prepare("SELECT `Reports` FROM `plop_files` WHERE `ID`= ?"))
+    if($u_stmt = $mysqli->prepare("SELECT `Reports` FROM `plop_files` WHERE `ID`= ?"))
     {
-      $stmt->bind_param('i', $file_id);
-      $stmt->execute();
-      $stmt->bind_result($times_reported);
-      $stmt->close();
+      $u_stmt->bind_param('i', $file_id);
+      $u_stmt->execute();
+      $u_stmt->bind_result($times_reported);
     }
     if($u_stmt = $mysqli->prepare("UPDATE `plop_files` SET `Reports`= ? WHERE `ID`= ?"))
     {
-      $stmt->bind_param('ii', $times_reported, $file_id);
-      $stmt->execute();
-      $stmt->close();
+      $u_stmt->bind_param('ii', $times_reported, $file_id);
+      $u_stmt->execute();
+    }
+    if ($u_stmt != null)
+    {
+      $u_stmt->close();
     }
   }
+}
+if ($mysqli != null)
+{
   $mysqli->close();
 }
 
