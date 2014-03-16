@@ -25,7 +25,7 @@ if($stmt = $mysqli->prepare("SELECT `Client IP`, `Client Proxy` FROM `IP_Address
         $r_stmt->bind_param('s', $ip);
         $r_stmt->execute();
         $r_stmt->bind_result($report_number);
-        // $r_stmt->fetch();
+        //$r_stmt->fetch();
         if($report_number < MAX_REPORTS)
         {
           if($u_stmt = $mysqli->prepare("UPDATE `IP_Addresses` SET `Reports`= ? WHERE `Client IP` = ?"))
@@ -51,7 +51,8 @@ if($stmt = $mysqli->prepare("SELECT `Client IP`, `Client Proxy` FROM `IP_Address
         $r_stmt->close();
       }
     }
-  // Create entry for IP and Proxy
+  }
+    // Create entry for IP and Proxy
   if (!$found)
   {
     if($stmt = $mysqli->prepare("INSERT INTO `IP_Addresses`(`Client IP`, `Client Proxy`, `Reports`) VALUES (?,?,?)"))
@@ -77,6 +78,5 @@ if($stmt = $mysqli->prepare("SELECT `Client IP`, `Client Proxy` FROM `IP_Address
   }
   $mysqli->close();
 }
-
 
 ?>
