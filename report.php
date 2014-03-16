@@ -25,7 +25,9 @@ if($stmt = $mysqli->prepare("SELECT `Client IP`, `Client Proxy` FROM `IP_Address
         $r_stmt->bind_param('s', $ip);
         $r_stmt->execute();
         $r_stmt->bind_result($report_number);
+        echo "Test report number : $report_number";
         $r_stmt->fetch();
+        echo "Test report number : $report_number";
         if($report_number < MAX_REPORTS)
         {
           if($u_stmt = $mysqli->prepare("UPDATE `IP_Addresses` SET `Reports`= ? WHERE `Client IP` = ?"))
@@ -35,14 +37,14 @@ if($stmt = $mysqli->prepare("SELECT `Client IP`, `Client Proxy` FROM `IP_Address
           }
           if($u_stmt = $mysqli->prepare("SELECT `Reports` FROM `plop_files` WHERE `ID`= ?"))
           {
-            $u_stmt->bind_param('i', $file_id);
+            $u_stmt->bind_param('s', $file_id);
             $u_stmt->execute();
             $u_stmt->bind_result($times_reported);
             $u_stmt->fetch();
           }
           if($u_stmt = $mysqli->prepare("UPDATE `plop_files` SET `Reports`= ? WHERE `ID`= ?"))
           {
-            $u_stmt->bind_param('ii', $times_reported, $file_id);
+            $u_stmt->bind_param('is', $times_reported, $file_id);
             $u_stmt->execute();
           }
           if ($u_stmt != null)
@@ -65,14 +67,14 @@ if($stmt = $mysqli->prepare("SELECT `Client IP`, `Client Proxy` FROM `IP_Address
     }
     if($u_stmt = $mysqli->prepare("SELECT `Reports` FROM `plop_files` WHERE `ID`= ?"))
     {
-      $u_stmt->bind_param('i', $file_id);
+      $u_stmt->bind_param('s', $file_id);
       $u_stmt->execute();
       $u_stmt->bind_result($times_reported);
       $u_stmt->fetch();
     }
     if($u_stmt = $mysqli->prepare("UPDATE `plop_files` SET `Reports`= ? WHERE `ID`= ?"))
     {
-      $u_stmt->bind_param('ii', $times_reported, $file_id);
+      $u_stmt->bind_param('is', $times_reported, $file_id);
       $u_stmt->execute();
     }
     if ($u_stmt != null)
