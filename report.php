@@ -4,7 +4,7 @@ require_once("config.inc.php");
 require_once("constants.php");
 
 $ClientIP = $_SERVER['REMOTE_ADDR'];
-$file_id = 0;//$_POST['file']['name'];
+$file_id = $_GET['name'];
 $found = false;
 
 $mysqli = new mysqli($database_host, $database_user, $database_pass, $group_dbnames[0]);
@@ -15,6 +15,7 @@ if($stmt = $mysqli->prepare("SELECT `Client IP` FROM `IP_Addresses`"))
   echo "After first stmt\n";
   $stmt->execute();
   $stmt->bind_result($ip);
+  echo "file id : $file_id\n";
   echo "$ClientIP\n";
   while($stmt->fetch())
   {
