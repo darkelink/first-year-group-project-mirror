@@ -27,9 +27,10 @@ if($stmt = $mysqli->prepare("SELECT `Client IP` FROM `IP_Addresses`"))
     {
       $found = true;
       echo "Test 2 - after ip check\n";
+  $stmt->close();
       if($r_stmt = $mysqli->prepare("SELECT `Reports` FROM `IP_Addresses` WHERE `Client IP` = ?"))
       {
-        echo "First if test";
+        echo "First if test\n";
         $r_stmt->bind_param('s', $ip);
         $r_stmt->execute();
         $r_stmt->bind_result($report_number);
@@ -62,6 +63,8 @@ if($stmt = $mysqli->prepare("SELECT `Client IP` FROM `IP_Addresses`"))
           }
         }
         $r_stmt->close();
+      } else {
+        echo $mysqli->error . '\n';
       }
     }
   }
