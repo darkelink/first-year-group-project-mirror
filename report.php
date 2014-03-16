@@ -5,7 +5,7 @@ require_once("constants.php");
 
 $ClientIP = $_SERVER['REMOTE_ADDR'];
 $ClientProxy = $_SERVER['HTTP_X_FORWARDED_FOR'];
-$file_id = $_POST['file']['name']
+$file_id = $_POST['file']['name'];
 $found = false;
 
 $mysqli = new mysqli($database_host, $database_user, $database_pass, $group_dbnames[0]);
@@ -23,10 +23,10 @@ if($stmt = $mysqli->prepare("SELECT `Client IP`, `Client Proxy` FROM `IP_Address
       $found = true;
       if($r_stmt = $mysqli->prepare("SELECT `Reports` FROM `IP_Addresses` WHERE `Client IP` = ?"))
       {
-        $r_stmt->bind_param('s', $ip)
+        $r_stmt->bind_param('s', $ip);
         $r_stmt->execute();
         $r_stmt->bind_result($report_number);
-        $r_stmt->fetch()
+        $r_stmt->fetch();
         if($report_number < MAX_REPORTS)
         {
           if($u_stmt = $mysqli->prepare("UPDATE `IP_Addresses` SET `Reports`= ? WHERE `Client IP` = ?"));
@@ -58,10 +58,10 @@ if($stmt = $mysqli->prepare("SELECT `Client IP`, `Client Proxy` FROM `IP_Address
       $found = true;
       if($r_stmt = $mysqli->prepare("SELECT `Reports` FROM `IP_Addresses` WHERE `Client Proxy` = ?"))
       {
-        $r_stmt->bind_param('s', $proxy)
+        $r_stmt->bind_param('s', $proxy);
         $r_stmt->execute();
         $r_stmt->bind_result($report_number);
-        $r_stmt->fetch()
+        $r_stmt->fetch();
         if($report_number < MAX_REPORTS)
         {
           if($u_stmt = $mysqli->prepare("UPDATE `IP_Addresses` SET `Reports`= ? WHERE `Client Proxy` = ?"));
