@@ -211,7 +211,6 @@
        type: "POST", // POST method
        url: "report.php?name=" + fileName, // calls report
        success: function(msg){
-         console.log(filename);
          console.log("Report done"); // for testing
        }
      });   
