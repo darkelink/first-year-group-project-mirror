@@ -10,27 +10,30 @@ $found = false;
 $mysqli = new mysqli($database_host, $database_user, $database_pass, $group_dbnames[0]);
 
 // Check Database for Client IP and Client Proxy
-if($stmt = $mysqli->prepare("SELECT `Client IP`, `Client Proxy` FROM `IP_Addresses`"))
+echo "This always works\n";
+if($stmt = $mysqli->prepare("SELECT `Client IP` FROM `IP_Addresses`"))
 {
+  echo "After first stmt\n";
   $stmt->execute();
-  $stmt->bind_result($ip, $proxy);
+  $stmt->bind_result($ip);
+  echo "$ClientIP\n";
   while($stmt->fetch())
   {
     // CHECK LIST FOR IP
-    echo "Test 1 - before ip check";
+    echo "Test 1 - before ip check\n";
     if($ip == $ClientIP && !$found)
     {
       $found = true;
-      echo "Test 2 - after ip check";
+      echo "Test 2 - after ip check\n";
       if($r_stmt = $mysqli->prepare("SELECT `Reports` FROM `IP_Addresses` WHERE `Client IP` = ?"))
       {
         echo "First if test";
         $r_stmt->bind_param('s', $ip);
         $r_stmt->execute();
         $r_stmt->bind_result($report_number);
-        echo "Test report number : $report_number";
+        echo "Test report number before fetch : $report_number\n";
         $r_stmt->fetch();
-        echo "Test report number : $report_number";
+        echo "Test report number : $report_number\n";
         if($report_number < MAX_REPORTS)
         {
           if($u_stmt = $mysqli->prepare("UPDATE `IP_Addresses` SET `Reports`= ? WHERE `Client IP` = ?"))
@@ -60,12 +63,14 @@ if($stmt = $mysqli->prepare("SELECT `Client IP`, `Client Proxy` FROM `IP_Address
     }
   }
     // Create entry for IP and Proxy
+  echo "Test before !found if\n";
   if (!$found)
   {
-    if($u_stmt = $mysqli->prepare("INSERT INTO `IP_Addresses`(`Client IP`, `Client Proxy`, `Reports`) VALUES (?,?,?)"))
+    ecoh "Test inside !found if\n";
+    if($u_stmt = $mysqli->prepare("INSERT INTO `IP_Addresses`(`Client IP`, `Reports`) VALUES (?,?)"))
     {
       $temp = 1;
-      $u_stmt->bind_param('ssi', $ClientIP, $ClientProxy, $temp);
+      $u_stmt->bind_param('si', $ClientIP, $temp);
       $u_stmt->execute();
     }
     if($u_stmt = $mysqli->prepare("SELECT `Reports` FROM `plop_files` WHERE `ID`= ?"))
