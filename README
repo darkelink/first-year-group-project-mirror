@@ -1,11 +1,12 @@
-Plop is a web application that allows users to publicly upload files and view that last few files that were uploaded. 
+Plop is a web application that allows users to publicly upload images and view that last few that were uploaded. 
 
-The files operate on a FIFO queue with old files getting deleted from disk.
+The images operate on a FIFO queue with old files getting deleted from disk.
 Uploading is performed through Dropzone which then calls upload.php, Dropzone also calls upload.php on page load to get all the files to display on the page, which then get a Fancybox element added to them.
 
-Uses Dropzone under MIT licence.
-Uses Fancybox2 under CC-BY-NC. (Attribution NonCommercial)
+Uses DropzoneJS, Three.js and jQuery under MIT licence.
+Uses Fancybox under CC-BY-NC. (Attribution NonCommercial)
 
 Requires a folder called uploads to store uploaded files. Files in that folder will be named numerically with no file extension. Also requires a config.inc.php file to connect to the database, details of how to obtain one can be found at web.cs.manchester.ac.uk
+Files in upload that have different file names will be shown on the site but will not be removed!
 
 Please do not put files that are not needed into the repo, feel free to update .gitignore if you use them locally.
