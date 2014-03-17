@@ -189,9 +189,12 @@
       speedOut : 200,
       // Add report button to the end
       afterLoad : function(current) {
+        var image = this.content[0].children[0].children[0];
+        fileName = image.src;
+        // make sure there is no horizontal scrolling
+        image.style.width = Math.min(this.width, image.width) + 'px';
+        // add report button
         this.content = this.content.html() + "<a class='btn-red' onClick='report()'>Report</a>";
-        fileName = current.element[0].children[0].children[0].src;
-        console.log(fileName);
       },
       afterClose : function() {
         location.reload();
