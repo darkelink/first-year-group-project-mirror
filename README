@@ -9,4 +9,8 @@ Uses Fancybox under CC-BY-NC. (Attribution NonCommercial)
 Requires a folder called uploads to store uploaded files. Files in that folder will be named numerically with no file extension. Also requires a config.inc.php file to connect to the database, details of how to obtain one can be found at web.cs.manchester.ac.uk
 Files in upload that have different file names will be shown on the site but will not be removed!
 
+Need to edit php.ini:
+upload_max_filesize = 20M
+post_max_size = 20M
+
 Please do not put files that are not needed into the repo, feel free to update .gitignore if you use them locally.

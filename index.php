@@ -146,10 +146,20 @@
     renderer.render(scene, camera);
   }
 
+  // resize when the window resizes
+  // TODO: make skybox re-render
+  window.onresize = function(event) {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerwidth / window.innerheight;
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Here marks the end of the webgl code
+  //////////////////////////////////////////////////////////////////////////////
 
   // display all files in the dropzone
   function getFiles(dz) {
-    $.getJSON('upload.php', function(data) {
+    $.getJSON('upload.php?getFiles=true', function(data) {
       $.each(data, function(key,value){
         var mockFile = { name: value.name, size: value.size };
         dz.options.addedfile.call(dz, mockFile);
@@ -165,7 +175,7 @@
   // setup Dropzone (must be done after three.js)
   myDropzone = new Dropzone("div#dropzone", { 
     url: "upload.php", 
-    maxFileSize: 20,
+    maxFilesize: 20,
     uploadMultiple: false,
     parallelUploads: 1,
     clickable: true,
@@ -175,9 +185,15 @@
     // add all files from uploads/ to dropzone when the page loads
     init: function() {
       getFiles(this);
+    },
+    // reload the page after a successful upload
+    success: function() {
+      location.reload();
+      return;
     }
   });
-  // Setup fancybox (jquery)
+
+  // Setup fancybox
   $(document).ready(function() {
     $(".dz-preview").fancybox();
 
@@ -196,6 +212,7 @@
         // add report button
         this.content = this.content.html() + "<a class='btn-red' onClick='report()'>Report</a>";
       },
+      // reload the page when closing a file
       afterClose : function() {
         location.reload();
         return;
@@ -218,13 +235,6 @@
        }
      });   
   }
-
-  window.onresize = function(event) {
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    camera.aspect = window.innerwidth / window.innerheight;
-  }
-
-
 
   </script>
 
