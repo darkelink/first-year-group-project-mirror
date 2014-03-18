@@ -8,41 +8,38 @@ $file_id = $_GET['name'];
 $array = explode(DS, $file_id);
 $file_id = end($array);
 $found = false;
-
 $mysqli = new mysqli($database_host, $database_user, $database_pass, $group_dbnames[0]);
+
 
 // Check Database for Client IP and Client Proxy
 if($stmt = $mysqli->prepare("SELECT `Client IP` FROM `IP_Addresses`"))
 {
-  echo "After first stmt\n";
   $stmt->execute();
   $stmt->bind_result($ip);
-  echo "file id : $file_id\n";
-  echo "$ClientIP\n";
   while(!$found && $stmt->fetch())
   {
     // CHECK LIST FOR IP
-    echo "Test 1 - before ip check\n";
-    echo "IP in datab : $ip\n";
+    // If found set flag and :
+    // 		1) Get number of reports so far
+    //		2) Update the number of reports if they do not already exceed the limit
+    //		3) Get the number of file reports
+    //		4) Update the number of file reports
     if($ip == $ClientIP && !$found)
     {
       $found = true;
-      echo "Test 2 - after ip found\n";
       $stmt->close();
       if($r_stmt = $mysqli->prepare("SELECT `Reports` FROM `IP_Addresses` WHERE `Client IP` = ?"))
       {
-        echo "First if test\n";
         $r_stmt->bind_param('s', $ip);
         $r_stmt->execute();
         $r_stmt->bind_result($report_number);
         $r_stmt->fetch();
         $r_stmt->close();
-        echo "Test report number : $report_number\n";
         if($report_number < MAX_REPORTS)
         {
+        	if ($r_stmt = $mysqli->prepare("SELECT "))
           if($u_stmt = $mysqli->prepare("UPDATE `IP_Addresses` SET `Reports`= ? WHERE `Client IP` = ?"))
           {
-            echo "Check if update clause is good\n";
             $nextReport = $report_number + 1;
             $u_stmt->bind_param('is', $nextReport, $ip);
             $u_stmt->execute();
@@ -50,7 +47,6 @@ if($stmt = $mysqli->prepare("SELECT `Client IP` FROM `IP_Addresses`"))
           }
           if($u_stmt = $mysqli->prepare("SELECT `Reports` FROM `plop_files` WHERE `ID`= ?"))
           {
-            echo "Check if file report select works\n";
             $u_stmt->bind_param('s', $file_id);
             $u_stmt->execute();
             $u_stmt->bind_result($times_reported);
@@ -59,29 +55,26 @@ if($stmt = $mysqli->prepare("SELECT `Client IP` FROM `IP_Addresses`"))
           }
           if($u_stmt = $mysqli->prepare("UPDATE `plop_files` SET `Reports`= ? WHERE `ID`= ?"))
           {
-            echo "Check if plop_files update - Shouldn't work\n";
             $u_stmt->bind_param('is', $times_reported, $file_id);
             $u_stmt->execute();
             $u_stmt->close();
           }
-        }
-      } 
-      else 
-      {
-        echo $mysqli->error . '\n';
-      }
-    }
-  }
-    // Create entry for IP and Proxy
-  echo "Test before !found if\n";
+        } //if
+      } //if
+    } //if
+  } //while
+
+  // If found flag not set:
+  //		1) Make new ip entry
+  //		2) Get the file report number
+  //		3) Update file report number
   if (!$found)
   {
     $stmt->close();
-    echo "Test inside !found if\n";
     if($u_stmt = $mysqli->prepare("INSERT INTO `IP_Addresses`(`Client IP`, `Reports`) VALUES (?,?)"))
     {
-      $temp = 1;
-      $u_stmt->bind_param('si', $ClientIP, $temp);
+      $tempOne = 1;
+      $u_stmt->bind_param('si', $ClientIP, $tempOne);
       $u_stmt->execute();
       $u_stmt->close();
     }
@@ -101,6 +94,8 @@ if($stmt = $mysqli->prepare("SELECT `Client IP` FROM `IP_Addresses`"))
     }
   }
 }
+
+
 if ($mysqli != null)
 {
   $mysqli->close();

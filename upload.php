@@ -1,8 +1,10 @@
 <?php
 
 require_once('constants.php');
+require_once('config.inc.php');
 
 $storeFolder = 'uploads';
+$found = false;
 
 if (isset($_GET['getFiles'])) { 
   // Opening the page
@@ -22,9 +24,11 @@ if (isset($_GET['getFiles'])) {
   // A file was uploaded
 
   // Get info about the file
+  $ClientIP = $_SERVER['REMOTE_ADDR'];
   $size = $_FILES['file']['size'];
   $tempFile = $_FILES['file']['tmp_name'];
   $mimeType = getimagesize($tempFile)['mime'];
+  $mysqli = new mysqli($database_host, $database_user, $database_pass, $group_dbnames[0]);
 
   // Check if valid file
   // dropzone already does these checks, but do them again to make sure
@@ -43,6 +47,45 @@ if (isset($_GET['getFiles'])) {
       // Move the uploaded file and use the empty file name that was found
       $targetFile =  $targetPath . $nextName; 
       move_uploaded_file($tempFile, $targetFile);
+
+      // Insert or update into database table
+      // 
+      if ($b_stmt = $mysqli->prepare("SELECT 'ID' FROM 'plop_files'"))
+      {
+      	$b_stmt->execute();
+      	$b_stmt->bind_result($dbID);
+      	// If ID is in database:
+      	//		1) Update the reports to 0 and the owner to the new ip
+      	while(!$found && $b_stmt->fetch())
+      	{
+      		if ($dbID == $nextName)
+      		{
+      			$found = true;
+      			$b_stmt->close();
+      			if ($u_stmt = $mysqli->prepare("UPDATE 'plop_files' SET 'Reports' = ?, 'OWNER' = ? WHERE 'ID' = ?"))
+      			{
+	      			$tempZero = 0;
+	      			$u_stmt->bind_param('iss', $tempZero, $ClientIP, $dbID);
+	      			$u_stmt->execute();
+	      			$u_stmt->close();
+	      		} //if
+      		} //if
+      	} //while
+
+      	// If ID is not in database:
+      	//		1) Insert ID,Owner, and reports equal to 0
+      	if(!$found)
+      	{
+      		$b_stmt->close();
+      		if ($i_stmt = $mysqli->prepare("INSERT INTO 'plop_files'('ID', 'Reports','Owner') VALUES (?,?,?)"))
+      		{
+      			$tempZero = 0;
+      			$i_stmt->bind_param('si', $nextName, $tempZero, $ClientIP);
+      			$i_stmt->execute();
+      			$i_stmt->close();
+      		} //if
+      	} //if
+      } //if
     
       // Check we the max number of files hasn't been reached
       if ($itr == MAX_FILES) {
