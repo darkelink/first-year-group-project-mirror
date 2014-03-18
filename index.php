@@ -5,6 +5,9 @@
   <meta charset="UTF-8" name="vieport" 
     content="width=device-width, user-scalable=no, minimum=scale=1.0, maximum=scale=1.0">
 
+  <!-- FONT -->
+  <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+
   <!-- DEFAULT -->
   <link href="css/global_style.css" type="text/css" rel="stylesheet" />
 
@@ -51,7 +54,7 @@
   function init() {
     // create all elements
     container = document.createElement('div');
-    container.setAttribute('id', 'dropzone');
+    container.id = 'background';
     document.body.appendChild(container);
 
     renderer = new THREE.WebGLRenderer();
@@ -130,7 +133,7 @@
       side: THREE.BackSide
     });
 
-    var skyBox = new THREE.Mesh(new THREE.BoxGeometry(1000000, 1000000, 1000000), skyBoxMaterial);
+    var skyBox = new THREE.Mesh(new THREE.CubeGeometry(1000000, 1000000, 1000000), skyBoxMaterial);
     scene.add(skyBox);
   }
 
@@ -147,10 +150,8 @@
   }
 
   // resize when the window resizes
-  // TODO: make skybox re-render
   window.onresize = function(event) {
     renderer.setSize(window.innerWidth, window.innerHeight);
-    camera.aspect = window.innerwidth / window.innerheight;
   }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -172,59 +173,6 @@
     });
   }
 
-  // setup Dropzone (must be done after three.js)
-  myDropzone = new Dropzone("div#dropzone", { 
-    url: "upload.php", 
-    maxFilesize: 20,
-    uploadMultiple: false,
-    parallelUploads: 1,
-    clickable: true,
-    acceptedFiles: "image/*",
-    previewTemplate: "<div class='dz-preview dz-file-preview'><div class='dz-details'><img data-dz-thumbnail /></div><div class='dz-progress'><span class='dz-upload' data-dz-uploadprogress></span></div><div class='dz-success-mark'><span></span></div><div class='dz-error-mark'><span></span></div><div class='dz-error-message'><span data-dz-errormessage></span></div></div>",
-
-    // add all files from uploads/ to dropzone when the page loads
-    init: function() {
-      getFiles(this);
-    },
-    // reload the page after a successful upload
-    success: function() {
-      location.reload();
-      return;
-    }
-  });
-
-  // Setup fancybox
-  $(document).ready(function() {
-    $(".dz-preview").fancybox();
-
-    $(".dz-preview").fancybox({
-      transitionIn : "elastic",
-      transitionOut : "elastic",
-      padding: 0,
-      speedIn : 600, 
-      speedOut : 200,
-      // Add report button to the end
-      afterLoad : function(current) {
-        var image = this.content[0].children[0].children[0];
-        fileName = image.src;
-        // make sure there is no horizontal scrolling
-        image.style.width = Math.min(this.width, image.width) + 'px';
-        // add report button
-        this.content = this.content.html() + "<a class='btn-red' onClick='report()'>Report</a>";
-      },
-      // reload the page when closing a file
-      afterClose : function() {
-        location.reload();
-        return;
-      }
-    });
-
-    $(".helpBtn").fancybox({
-      padding: 0
-    });
-  });
-
-
   function report()
   {
      $.ajax({
@@ -235,10 +183,78 @@
        }
      });   
   }
+  
+  // add the dropzone
 
+  $(document).ready(function() {
+
+    // Dropzone
+    var dzMain = document.createElement('div');
+    dzMain.className = "dropzone";
+    document.body.appendChild(dzMain);
+    var dropzone = new Dropzone(dzMain, {
+      url: "upload.php", 
+      maxFilesize: 20,
+      uploadMultiple: false,
+      parallelUploads: 1,
+      clickable: true,
+      acceptedFiles: "image/*",
+      previewTemplate: "<div class='dz-preview dz-file-preview'><div class='dz-details'><img data-dz-thumbnail /></div><div class='dz-progress'><span class='dz-upload' data-dz-uploadprogress></span></div><div class='dz-success-mark'><span></span></div><div class='dz-error-mark'><span></span></div><div class='dz-error-message'><span data-dz-errormessage></span></div></div>",
+
+      // add all files from uploads/ to dropzone when the page loads
+      init: function() {
+        getFiles(this);
+      },
+      // reload the page after a successful upload
+      success: function() {
+        location.reload();
+        return;
+      }
+    });
+
+
+    // Fancybox
+    $(".dz-preview").fancybox();
+
+    $(".dz-preview").fancybox({
+      helpers: {
+        title: null
+      },
+      transitionIn : "elastic",
+      transitionOut : "elastic",
+      padding: 0,
+      speedIn : 600, 
+      speedOut : 200,
+
+      afterLoad : function(current) {
+        var image = this.content[0].children[0].children[0];
+        fileName = image.src;
+
+        // make sure there is no horizontal scrolling
+        image.style.width = Math.min(this.width, image.width) + 'px';
+
+        // add report button
+        var report = document.createElement('a');
+        report.setAttribute('class', 'btn-red2');
+        report.setAttribute('onClick', 'report()');
+        report.appendChild(document.createTextNode('Report'));
+        $(".fancybox-skin").append(report);
+      },
+      // reload the page when closing a file
+      afterClose : function() {
+        location.reload();
+        return;
+      }
+    });
+
+    $("#helpBtn").fancybox({
+      padding: 0
+    });
+  }); 
   </script>
+  
+  <h1 id="title">PLOP</h1>
+  <a class="fancybox fancybox.iframe" id="helpBtn" href="helppage.html">Help</a>
 
-  <a class="fancybox fancybox.iframe helpBtn" href="helppage.html">Help</a>
-   
 </body>
 </html>

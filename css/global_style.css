@@ -1,29 +1,115 @@
-
-/*
-  NOTE: the sizing attributes for the components are only temporary, this
-  should be changed so they size correctly with any browser dimension and
-  for each component to have their own minimum dimensions. 
-*/
-
 /* global attributes for main components */
+
+
+* {
+  font-family: "Quicksand", sans-serif;
+}
 
 body {
   margin: 0;
+  background-color: #00ABFF;
+  overflow-x: hidden;
 }
 
-.helpBtn {
+p {
+  margin: 20px;
+}
+
+.dropzone {
+  position: fixed !important;
   position: absolute;
+  top: 87px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  overflow-y: overlay;
 }
 
-*
-{
-  font-family: "Open Sans", sans-serif;
-  color: rgba(0,0,0,0.8);
-  background-color: rgba(0,0,0,0.0);
-  
-  border-color: rgba(0,0,0,0.7);
+.dz-details {
+  display: flex;
 }
-/* button code */
+
+
+/* Report button */
+.btn-red2 {
+  position: absolute;
+  height:20px;
+  width:86px;
+
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fe1a00), color-stop(1, #ce0100) );
+  background:-moz-linear-gradient( center top, #fe1a00 5%, #ce0100 100% );
+  background-color:#fe1a00;
+  -webkit-border-bottom-right-radius:10px;
+  -moz-border-radius-bottomright:10px;
+  border-bottom-right-radius:10px;
+  -webkit-border-bottom-left-radius:10px;
+  -moz-border-radius-bottomleft:10px;
+  border-bottom-left-radius:10px;
+  color:#ffffff;
+
+  font-size:9px;
+  line-height:20px;
+  text-align:center;
+}
+.btn-red2:hover {
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ce0100), color-stop(1, #fe1a00) );
+  background:-moz-linear-gradient( center top, #ce0100 5%, #fe1a00 100% );
+  background-color:#ce0100;
+  cursor: pointer;
+}
+
+#background {
+  position: fixed;
+}
+
+#title {
+  position: absolute;
+  text-align: center;
+  margin: auto;
+  width: 100%;
+
+  font-size:72px;
+  letter-spacing: 50px;
+  /* this makes the text actually centred as letter-spacing is broken */
+  padding-left: 25px;
+}
+
+#helpBtn {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 100px;
+  width: 100px;
+  z-index: 1;
+
+  -moz-box-shadow:inset -1px 1px 0px 0px #97c4fe;
+  -webkit-box-shadow:inset -1px 1px 0px 0px #97c4fe;
+  box-shadow:inset -1px 1px 0px 0px #97c4fe;
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3d94f6), color-stop(1, #1e62d0) );
+  background:-moz-linear-gradient( center top, #3d94f6 5%, #1e62d0 100% );
+  background-color:#3d94f6;
+
+  border-radius: 0 100px 0 0;
+  moz-border-radius: 0 100px 0 0;
+  -webkit-border-radius: 0 100px 0 0;
+
+  border: 1px solid #337fed;
+  color:#ffffff;
+
+  font-size:26px;
+  font-weight: bold;
+  text-decoration: none;
+  font-style: normal;
+  line-height: 100px;
+}
+#helpBtn:hover {
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #1e62d0), color-stop(1, #3d94f6) );
+  background:-moz-linear-gradient( center top, #1e62d0 5%, #3d94f6 100% );
+  background-color:#1e62d0;
+}
+
+/*
 [class*='btn-'] {
   border-radius: 4px;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
@@ -36,6 +122,7 @@ body {
   padding: 8px 16px;
   text-decoration: none;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+  position: absolute;
   
   -webkit-transition: background-color 0.1s linear;
   -moz-transition: background-color 0.1s linear;
@@ -58,71 +145,5 @@ body {
     .btn-red:active {
       background-color: rgb( 187, 40, 74 );
     }
-/* end of button code */
-/* main body attributes */
-
-body
-{
-  height: 100%;
-  background-color: #00ABFF;
-}
-/* header attributes */
-h
-{
- position:absolute;
- text-shadow: 5px 5px 5px #FF0000;
- font-weight: bold;
- font-size: 60px;
- bottom:650px;
-}
-/* paragraph attributes */
-
-p
-{
-  position:absolute;
-  font-weight: bold;
-  bottom:600px;
-}
-
-/* central pool attributes */
-
-div.central_pool
-{
-  
-  position: absolute;
-  padding: 20%; /* do not change this */
-  left: 15%;    /* do not change this */
-  top: 3%;      /* do not change this */
-  width:500px;
-  border-radius: 50%;
-  border-style: dashed;
-  border-color: rgba(0,0,0,0.2);
-}
-
-/* navigation bar attributes */
-
-div.navigation_bar
-{
-  position: absolute;
-  top: 32%; /* do not change this */
-  padding: 8px;
-  
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 15px;
-}
-
-/* filter bar attributes */
-
-div.filter_bar
-{
-  position: absolute;
-  top: 90%;  /* do not change this */
-  left: 37%; /* do not change this */
-  padding: 8px;
-  
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 8px;
-}
+*/
 
