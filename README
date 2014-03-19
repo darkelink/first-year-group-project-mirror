@@ -6,7 +6,7 @@ Uploading is performed through Dropzone which then calls upload.php, Dropzone al
 Uses DropzoneJS, Three.js and jQuery under MIT licence.
 Uses Fancybox under CC-BY-NC. (Attribution NonCommercial)
 
-Requires a folder called uploads to store uploaded files. Files in that folder will be named numerically with no file extension. Also requires a config.inc.php file to connect to the database, details of how to obtain one can be found at web.cs.manchester.ac.uk
+Requires a folder called uploads, that the server has read and write permissions, to store uploaded files. Files in that folder will be named numerically with no file extension. Also requires a config.inc.php file to connect to the database, details of how to obtain one can be found at web.cs.manchester.ac.uk
 Files in upload that have different file names will be shown on the site but will not be removed!
 
 Need to edit php.ini:
