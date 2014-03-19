@@ -24,7 +24,7 @@ if($stmt = $mysqli->prepare("SELECT `Client IP` FROM `IP_Addresses`"))
     //		2) Update the number of reports if they do not already exceed the limit
     //		3) Get the number of file reports
     //		4) Update the number of file reports
-    if($ip == $ClientIP && !$found)
+    if($ip == $ClientIP)
     {
       $found = true;
       $stmt->close();
@@ -37,7 +37,6 @@ if($stmt = $mysqli->prepare("SELECT `Client IP` FROM `IP_Addresses`"))
         $r_stmt->close();
         if($report_number < MAX_REPORTS)
         {
-        	if ($r_stmt = $mysqli->prepare("SELECT "))
           if($u_stmt = $mysqli->prepare("UPDATE `IP_Addresses` SET `Reports`= ? WHERE `Client IP` = ?"))
           {
             $nextReport = $report_number + 1;

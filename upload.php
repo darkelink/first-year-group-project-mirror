@@ -68,6 +68,7 @@ if (isset($_GET['getFiles'])) {
 	      			$u_stmt->bind_param('iss', $tempZero, $ClientIP, $dbID);
 	      			$u_stmt->execute();
 	      			$u_stmt->close();
+              $mysqli->close();
 	      		} //if
       		} //if
       	} //while
@@ -77,12 +78,13 @@ if (isset($_GET['getFiles'])) {
       	if(!$found)
       	{
       		$b_stmt->close();
-      		if ($i_stmt = $mysqli->prepare("INSERT INTO 'plop_files'('ID', 'Reports','Owner') VALUES (?,?,?)"))
+      		if ($i_stmt = $mysqli->prepare("INSERT INTO 'plop_files'('ID', 'Reports','Owner','file-type') VALUES (?,?,?,?)"))
       		{
       			$tempZero = 0;
-      			$i_stmt->bind_param('si', $nextName, $tempZero, $ClientIP);
+      			$i_stmt->bind_param('siss', $nextName, $tempZero, $ClientIP, $mimeType);
       			$i_stmt->execute();
       			$i_stmt->close();
+            $mysqli->close();
       		} //if
       	} //if
       } //if
