@@ -1,0 +1,7 @@
+#!/bin/sh
+read -p 'Username: ' user
+read -sp 'Password: ' password
+mysql -h dbhost.cs.man.ac.uk -u $user --password=$password -D 2013_comp10120_y1 << END_SQL
+TRUNCATE TABLE IP_Addresses;
+END_SQL
+echo -e "\ndone"
