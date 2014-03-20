@@ -76,7 +76,7 @@
     scene.add(directionalLight);
 
     // load shaders
-    waterNormals = new THREE.ImageUtils.loadTexture('images/normals2.png');
+    waterNormals = new THREE.ImageUtils.loadTexture('images/normals.png');
     waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
 
     water = new THREE.Water(renderer, camera, scene, {
