@@ -73,6 +73,8 @@ p {
   letter-spacing: 50px;
   /* this makes the text actually centred as letter-spacing is broken */
   padding-left: 25px;
+
+  text-shadow: 0 2px 3px #555;
 }
 
 #helpBtn {

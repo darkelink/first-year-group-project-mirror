@@ -56,6 +56,8 @@
     container = document.createElement('div');
     container.id = 'background';
     document.body.appendChild(container);
+    // hide so we can fade in
+    $('#background').hide();
 
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -74,7 +76,7 @@
     scene.add(directionalLight);
 
     // load shaders
-    waterNormals = new THREE.ImageUtils.loadTexture('images/normals.png');
+    waterNormals = new THREE.ImageUtils.loadTexture('images/normals2.png');
     waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
 
     water = new THREE.Water(renderer, camera, scene, {
@@ -95,35 +97,39 @@
     scene.add(mirrorMesh);
 
     // load sky
-    var cubeMap = new THREE.Texture([]);
-    cubeMap.format = THREE.RGBFormat;
-    cubeMap.flipY = false;
-
+    cm = new THREE.Texture([]);
+    cm.format = THREE.RGBFormat;
+    cm.flipY = false;
+    
     var loader = new THREE.ImageLoader();
-    loader.load('images/skybox.png', function (image) {
-      // the skybox is in cubemap format, so we need each side of the cube
-      var getSide = function (x, y) {
-        var size = 1024;
-        var canvas = document.createElement('canvas');
-        canvas.width = size;
-        canvas.height = size;
-        var context = canvas.getContext('2d');
-        context.drawImage(image, - x * size, - y * size);
-        return canvas;
-      };
+    loader.load('images/sky_side.png', function(image) {
+      loader.load('images/sky_bottom.png', function (image1) {
+        loader.load('images/sky_side.png', function (image2) {
 
-      cubeMap.image[0] = getSide(2, 1);
-      cubeMap.image[1] = getSide(0, 1);
-      cubeMap.image[2] = getSide(1, 0);
-      cubeMap.image[3] = getSide(1, 2);
-      cubeMap.image[4] = getSide(1, 1);
-      cubeMap.image[5] = getSide(3, 1);
-      cubeMap.needsUpdate = true;
+          var getCanvas = function (tex) {
+            var canvas = document.createElement('canvas');
+            canvas.width  = 1024;
+            canvas.height = 1024;
+            var context = canvas.getContext('2d');
+            context.drawImage(tex, 0, 0);
+            return canvas;
+          }
+
+          cm.image[0] = getCanvas(image);
+          cm.image[1] = getCanvas(image);
+          cm.image[2] = getCanvas(image1);
+          cm.image[3] = getCanvas(image);
+          cm.image[4] = getCanvas(image2);
+          cm.image[5] = getCanvas(image);
+          cm.needsUpdate = true;
+          $('#background').fadeIn();
+        });
+      });
     });
 
     // add sky
     var cubeShader = THREE.ShaderLib['cube'];
-    cubeShader.uniforms['tCube'].value = cubeMap;
+    cubeShader.uniforms['tCube'].value = cm;
 
     var skyBoxMaterial = new THREE.ShaderMaterial({
       fragmentShader: cubeShader.fragmentShader,
