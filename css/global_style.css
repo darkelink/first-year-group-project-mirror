@@ -7,12 +7,20 @@
 
 body {
   margin: 0;
-  background-color: #00ABFF;
+  background-color: #79A5EF;
   overflow-x: hidden;
 }
 
 p {
   margin: 20px;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+h2 {
+  font-size: 22px;
 }
 
 .dropzone {
