@@ -62,7 +62,7 @@ if (isset($_GET['getFiles'])) {
       		{
       			$found = true;
       			$b_stmt->close();
-      			if ($u_stmt = $mysqli->prepare("UPDATE 'plop_files' SET 'Reports' = ?, 'OWNER' = ? WHERE 'ID' = ?"))
+      			if ($u_stmt = $mysqli->prepare("UPDATE 'plop_files' SET 'Reports number' = ?, 'OWNER' = ? WHERE 'ID' = ?"))
       			{
 	      			$tempZero = 0;
 	      			$u_stmt->bind_param('iss', $tempZero, $ClientIP, $dbID);
@@ -72,22 +72,22 @@ if (isset($_GET['getFiles'])) {
 	      		} //if
       		} //if
       	} //while
+      } //if
 
       	// If ID is not in database:
       	//		1) Insert ID,Owner, and reports equal to 0
-      	if(!$found)
-      	{
-      		$b_stmt->close();
-      		if ($i_stmt = $mysqli->prepare("INSERT INTO 'plop_files'('ID', 'Reports','Owner','file-type') VALUES (?,?,?,?)"))
-      		{
-      			$tempZero = 0;
-      			$i_stmt->bind_param('siss', $nextName, $tempZero, $ClientIP, $mimeType);
-      			$i_stmt->execute();
-      			$i_stmt->close();
-            $mysqli->close();
-      		} //if
-      	} //if
-      } //if
+    	if(!$found)
+    	{
+    		$b_stmt->close();
+    		if ($i_stmt = $mysqli->prepare("INSERT INTO 'plop_files'('ID', 'Reports number','Owner') VALUES (?,?,?)"))
+    		{
+    			$tempZero = 0;
+    			$i_stmt->bind_param('sis', $nextName, $tempZero, $ClientIP);
+    			$i_stmt->execute();
+    			$i_stmt->close();
+          $mysqli->close();
+    		} //if
+    	} //if
     
       // Check we the max number of files hasn't been reached
       if ($itr == MAX_FILES) {
