@@ -5,9 +5,6 @@
   <meta charset="UTF-8" name="vieport" 
     content="width=device-width, user-scalable=no, minimum=scale=1.0, maximum=scale=1.0">
 
-  <!-- FONT -->
-  <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
-
   <!-- DEFAULT -->
   <link href="css/global_style.css" type="text/css" rel="stylesheet" />
 
@@ -237,7 +234,7 @@
         fileName = image.src;
 
         // make sure there is no horizontal scrolling
-        image.style.width = Math.min(this.width, image.width) + 'px';
+        image.style.width = Math.min(window.innerWidth, image.width) + 'px';
 
         // add report button
         var report = document.createElement('a');

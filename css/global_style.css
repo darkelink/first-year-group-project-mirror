@@ -1,4 +1,4 @@
-/* global attributes for main components */
+@import url(http://fonts.googleapis.com/css?family=Quicksand:400,700);
 
 
 * {
@@ -13,14 +13,17 @@ body {
 
 p {
   margin: 20px;
+  transition: all 1s ease-in-out;
 }
 
 h1 {
   font-size: 36px;
+  transition: all 1s ease-in-out;
 }
 
 h2 {
   font-size: 22px;
+  transition: all 1s ease-in-out;
 }
 
 .dropzone {
@@ -33,6 +36,11 @@ h2 {
   text-align: center;
   overflow-y: overlay;
 }
+
+.dropzone * {
+  transition: all 0.5s ease-in-out;
+}
+
 
 .dz-details {
   display: flex;
