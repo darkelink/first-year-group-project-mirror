@@ -62,7 +62,7 @@ if (isset($_GET['getFiles'])) {
       		{
       			$found = true;
       			$b_stmt->close();
-      			if ($u_stmt = $mysqli->prepare("UPDATE 'plop_files' SET 'Reports number' = ?, 'OWNER' = ? WHERE 'ID' = ?"))
+      			if ($u_stmt = $mysqli->prepare("UPDATE 'plop_files' SET 'Reports number' = ?, 'Owner' = ? WHERE 'ID' = ?"))
       			{
 	      			$tempZero = 0;
 	      			$u_stmt->bind_param('iss', $tempZero, $ClientIP, $dbID);

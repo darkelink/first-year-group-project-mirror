@@ -37,27 +37,46 @@ if($stmt = $mysqli->prepare("SELECT `Client IP` FROM `IP_Addresses`"))
         $r_stmt->close();
         if($report_number < MAX_REPORTS)
         {
-          if($u_stmt = $mysqli->prepare("UPDATE `IP_Addresses` SET `Reports`= ? WHERE `Client IP` = ?"))
-          {
-            $nextReport = $report_number + 1;
-            $u_stmt->bind_param('is', $nextReport, $ip);
-            $u_stmt->execute();
-            $u_stmt->close();
-          }
-          if($u_stmt = $mysqli->prepare("SELECT `Reports` FROM `plop_files` WHERE `ID`= ?"))
-          {
-            $u_stmt->bind_param('s', $file_id);
-            $u_stmt->execute();
-            $u_stmt->bind_result($times_reported);
-            $u_stmt->fetch();
-            $u_stmt->close();
-          }
-          if($u_stmt = $mysqli->prepare("UPDATE `plop_files` SET `Reports`= ? WHERE `ID`= ?"))
-          {
-            $u_stmt->bind_param('is', $times_reported, $file_id);
-            $u_stmt->execute();
-            $u_stmt->close();
-          }
+        	if($u_stmt = $mysqli->prepare("SELECT `IP of Reports` FROM `plop_files` WHERE ID = ?"))
+        	{
+        		$u_stmt->bind_param('s', $file_id);
+        		$u_stmt->execute();
+        		$u_stmt->bind_result($ipReportList)
+        		$u_stmt->fetch();
+        		$u_stmt->close();
+        	}
+        	$ipArray = explode(" ", $ipReportList);
+        	if (!in_array($ip, $ipArray)
+        	{
+	          if($u_stmt = $mysqli->prepare("UPDATE `IP_Addresses` SET `Reports`= ? WHERE `Client IP` = ?"))
+	          {
+	            $nextReport = $report_number + 1;
+	            $u_stmt->bind_param('is', $nextReport, $ip);
+	            $u_stmt->execute();
+		          $u_stmt->close();
+	          }
+	          if($u_stmt = $mysqli->prepare("SELECT `Reports` FROM `plop_files` WHERE `ID`= ?"))
+	          {
+	            $u_stmt->bind_param('s', $file_id);
+	            $u_stmt->execute();
+	            $u_stmt->bind_result($times_reported);
+	            $u_stmt->fetch();
+		          $u_stmt->close();
+	          }
+	          if($u_stmt = $mysqli->prepare("UPDATE `plop_files` SET `Reports`= ? WHERE `ID`= ?"))
+	          {
+	            $u_stmt->bind_param('is', $times_reported, $file_id);
+	            $u_stmt->execute();
+	            $u_stmt->close();
+	          }
+          	if($u_stmt = $mysqli->prepare("UPDATE `plop_files` SET `IP of Reports` = ? WHERE `ID`= ?"))
+          	{
+	          	$ipReportList .= " " . $ip;
+	          	$u_stmt->bind_param('ss', $ipReportList, $file_id);
+	          	$u_stmt->execute();
+	          	$u_stmt->close();
+         	 	}
+         	} //if
         } //if
       } //if
     } //if
