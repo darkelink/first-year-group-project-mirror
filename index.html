@@ -182,7 +182,7 @@
        type: "POST", // POST method
        url: "report.php?name=" + fileName, // calls report
        success: function(msg){
-         console.log("Report done"); // for testing
+         $('.btn-red2').replaceWith('<span>Report done</span>');
        }
      });   
   }
@@ -233,8 +233,12 @@
         var image = this.content[0].children[0].children[0];
         fileName = image.src;
 
-        // make sure there is no horizontal scrolling
-        image.style.width = Math.min(window.innerWidth, image.width) + 'px';
+        // scale the image to fit the window
+        if (image.width - window.innerWidth > image.height - window.innerHeight) {
+          image.style.width = Math.min(window.innerWidth, image.width) + 'px';
+        } else {
+          image.style.height = Math.min(window.innerHeight - 60, image.height) + 'px';
+        }
 
         // add report button
         var report = document.createElement('a');
